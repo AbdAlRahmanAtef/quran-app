@@ -1,0 +1,220 @@
+.ayah-detail {
+  background-color: var(--dark);
+  padding: 50px 15px;
+  .content-container {
+    max-width: 440px;
+    margin: auto;
+    .cancel {
+      position: relative;
+      margin-bottom: 20px;
+      width: 45px;
+      height: 45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: 0.3s;
+      border-radius: 50%;
+      color: var(--light);
+      svg {
+        cursor: pointer;
+      }
+      &::before {
+        content: "عد الى السورة";
+        visibility: hidden;
+        position: absolute;
+        padding: 10px 15px;
+        align-items: center;
+        justify-content: center;
+        width: 90px;
+        border-radius: 6px;
+        color: var(--dark);
+        background-color: var(--light);
+        font-size: 14px;
+        font-weight: bold;
+        left: 50%;
+        top: -45px;
+        transform: translateX(-50%);
+        transition: 0.3s;
+      }
+      &::after {
+        content: "";
+        visibility: hidden;
+        position: absolute;
+        width: 20px;
+        height: 15px;
+        background-color: var(--light);
+        top: -7px;
+        left: 50%;
+        transform: translateX(-50%);
+        clip-path: polygon(50% 50%, 0 0, 100% 0);
+        transition: 0.3s;
+      }
+      &:hover {
+        background-color: var(--dark-alt);
+        &::after,
+        &::before {
+          visibility: visible;
+        }
+      }
+    }
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      p {
+        color: var(--light);
+        border: none;
+        background-color: var(--dark-alt);
+        padding: 10px 15px;
+        border-radius: 6px;
+        &.ayah {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          select {
+            &::-webkit-scrollbar {
+              width: 0;
+            }
+            background-color: var(--dark-alt);
+            color: var(--light);
+            outline: none;
+            border: none;
+            width: 50px;
+            cursor: pointer;
+            option {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+    .info {
+      color: var(--light);
+      width: 100%;
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      > span {
+        display: flex;
+        padding: 8px 15px;
+        border-radius: 20px;
+        align-items: center;
+        cursor: pointer;
+        gap: 10px;
+        font-size: 14px;
+        &:hover {
+          background-color: var(--dark-alt);
+        }
+      }
+      .details {
+        width: 100%;
+        text-align: right;
+        height: 0;
+        opacity: 0;
+        border: 2px solid var(--dark-alt);
+        border-radius: 10px;
+        &.active {
+          transition: 0.3s;
+          margin-top: 30px;
+          height: fit-content;
+          padding: 30px;
+          opacity: 1;
+        }
+        p {
+          margin-bottom: 20px;
+          font-size: 20px;
+          color: #777;
+          font-weight: bold;
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+    .tafser-name {
+      align-items: center;
+      display: flex;
+      max-width: 100%;
+      padding: 20px 0;
+      flex-wrap: nowrap;
+      gap: 20px;
+      overflow-x: scroll;
+      &::-webkit-scrollbar {
+        width: 0;
+      }
+      p {
+        min-width: fit-content;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 15px;
+        font-size: 18px;
+        color: var(--light);
+        background-color: var(--dark-alt);
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        &:hover {
+          background-color: #333;
+        }
+        &.active {
+          background-color: var(--light-alt);
+          color: var(--dark);
+        }
+      }
+    }
+    .tafsir {
+      padding: 20px;
+      border: 1px solid var(--dark-alt);
+      border-radius: 8px;
+      color: var(--light);
+      .ayah-text {
+        font-size: 22px;
+        border-bottom: 1px solid var(--dark-alt);
+        padding: 20px 0 40px;
+        span {
+          height: 30px;
+          width: 30px;
+          border-radius: 50%;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 14px;
+          border: 2px dotted;
+        }
+      }
+      .tafsir-text {
+        font-size: 20px;
+        line-height: 1.8;
+        padding: 40px 0 20px;
+      }
+    }
+    .navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      color: #777;
+      p {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        height: 54px;
+        padding: 0 15px;
+        border: 1px solid #777;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+        &.prevented {
+          cursor: not-allowed;
+        }
+        &:hover {
+          color: var(--light);
+          border-color: var(--light);
+        }
+      }
+    }
+  }
+}

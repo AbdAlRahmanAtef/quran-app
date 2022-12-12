@@ -1,0 +1,48 @@
+@use "../layout/mixins" as *;
+
+.surah {
+  @include flex(space-between, center);
+  padding: 15px 15px;
+  border: 1px solid var(--dark-alt);
+  border-radius: 6px;
+  transition: .3s;
+  > div {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: .3s;
+    .number {
+      @include flex(center, center);
+      border-radius: 6px;
+      width: 40px;
+      height: 40px;
+      transform: rotate(45deg);
+      background-color: var(--dark-alt);
+      small {
+        font-size: 14px;
+        font-weight: 500;
+        transform: rotate(-45deg);
+        transition: .3s;
+      }
+    }
+    .name {
+      font-size: 20px;
+    }
+  }
+  .ayahs {
+    color: #777;
+    font-weight: 600;
+    font-size: 18px;
+    transition: .3s;
+  }
+  &:hover {
+    border-color: var(--light-alt);
+    .number {
+      background-color: var(--light-alt);
+      color: var(--dark-alt);
+    }
+    .ayahs {
+      color: var(--light-alt);
+    }
+  }
+}

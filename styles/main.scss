@@ -1,0 +1,101 @@
+@use "./grid";
+@use "./layout/mixins" as *;
+@use "./components/navbar";
+@use "./components/footer";
+@use "./components/landing";
+@use "./components/surah";
+@use "./components/surahDetails";
+@use "./components/audio-player";
+@use "./pages/ayah-detail";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --dark: #1f2125;
+  --dark-alt: #343a40;
+  --light: #e7e9ea;
+  --light-alt: #b5b5cc;
+}
+
+html,
+body {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+main {
+  margin-top: 80px;
+}
+.app {
+  background-color: #000;
+  margin: auto;
+  min-height: 100vh;
+  color: var(--light);
+  overflow: hidden;
+
+  .surahs-list {
+    padding: 50px 0;
+    margin-bottom: 20px;
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+  }
+  .search {
+    width: 100%;
+    margin-bottom: 30px;
+    .container {
+      position: relative;
+      height: 70px;
+      input {
+        height: 70px;
+        width: 100%;
+        border-radius: 35px;
+        outline: none;
+        border: 2px solid transparent;
+        padding: 0 30px;
+        font-size: 22px;
+        font-weight: bold;
+        color: #777;
+        caret-color: #333;
+        &:focus {
+          border-color: var(--dark-alt);
+        }
+      }
+      span {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        position: absolute;
+        left: 40px;
+        top: 50%;
+        cursor: pointer;
+        transform: translateY(-50%);
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:hover {
+          background-color: var(--dark-alt);
+          svg {
+            fill: var(--light);
+          }
+        }
+        svg {
+          transition: 0.3s;
+          font-size: 25px;
+          fill: var(--dark-alt);
+        }
+      }
+    }
+  }
+}
