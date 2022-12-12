@@ -6,7 +6,6 @@ import { IoIosPause } from "react-icons/io";
 import AudioPlayer from "./AudioPlayer";
 import { useAppSelector } from "../redux/hooks";
 import Link from "next/link";
-import path from "path";
 import { converNumbers } from "../utils/convertNumbers";
 
 interface IProps {
@@ -88,27 +87,26 @@ const SurahDetails: NextPage<IProps> = ({ surah }) => {
               </switch>
             </svg>
           </p>
-          {ayahs?.map(
-            (ayah: any) =>
-              ayah.number === 1 ? (
-                <p key={ayah.number}>
-                  <Link href={`../ayah/${ayah.number}`} key={ayah.number}>
-                    {ayah.text?.slice(40)}{" "}
-                  </Link>
-                  <span key={ayah.name} className="ayah">
-                    {converNumbers(ayah.numberInSurah)}
-                  </span>
-                </p>
-              ) : (
-                <p key={ayah.number}>
-                  <Link href={`../ayah/${ayah.number}`} key={ayah.number}>
-                    {ayah.text}{" "}
-                  </Link>
-                  <span key={ayah.name} className="ayah">
-                    {converNumbers(ayah.numberInSurah)}
-                  </span>
-                </p>
-              )
+          {ayahs?.map((ayah: any) =>
+            ayah.numberInSurah === 1 ? (
+              <p key={ayah.number}>
+                <Link href={`../ayah/${ayah.number}`} key={ayah.number}>
+                  {ayah.text?.slice(40)}{" "}
+                </Link>
+                <span key={ayah.name} className="ayah">
+                  {converNumbers(ayah.numberInSurah)}
+                </span>
+              </p>
+            ) : (
+              <p key={ayah.number}>
+                <Link href={`../ayah/${ayah.number}`} key={ayah.number}>
+                  {ayah.text}{" "}
+                </Link>
+                <span key={ayah.name} className="ayah">
+                  {converNumbers(ayah.numberInSurah)}
+                </span>
+              </p>
+            )
           )}
         </div>
       </div>
