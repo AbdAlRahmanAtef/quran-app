@@ -27,7 +27,7 @@ const SurahDetails: NextPage<IProps> = ({ surah }) => {
 
   useEffect(() => {
     setSurahNumber(number?.toString().padStart(3, "0"));
-  }, []);
+  }, [number]);
 
   return (
     <div className="surah-details">

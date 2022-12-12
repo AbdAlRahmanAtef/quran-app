@@ -13,13 +13,13 @@ const storeDataInLocalStorage = (surah: SurahProps) => {
   }
 };
 
-const initialItems: SurahProps =
+const initialItems: SurahProps | any =
   typeof window !== "undefined" &&
   window.localStorage.getItem("CURRENT_SURAH") !== null &&
-  JSON.parse(localStorage.getItem("CURRENT_SURAH"));
+  window.localStorage.getItem("CURRENT_SURAH");
 
 const initialState: IProps = {
-  surah: initialItems,
+  surah: JSON.parse(initialItems),
 };
 
 export const surahSlice = createSlice({
