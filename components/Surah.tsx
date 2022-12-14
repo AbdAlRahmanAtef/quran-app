@@ -2,7 +2,6 @@ import { NextPage } from "next";
 import Link from "next/link";
 import React from "react";
 import { useAppDispatch } from "../redux/hooks";
-import { handleCurrentSurah } from "../redux/slices/surahSlilce";
 import { SurahProps } from "../utils/constents";
 
 interface IProps {
@@ -27,11 +26,7 @@ const Surah: NextPage<IProps> = ({ surah }) => {
   };
 
   return (
-    <Link
-      href={`./detail/${number}`}
-      className="surah "
-      onClick={() => dispatch(handleCurrentSurah(surah))}
-    >
+    <Link href={`./detail/${number}`} className="surah ">
       <div>
         <span className="number">
           <small>{converNumbers(number)}</small>

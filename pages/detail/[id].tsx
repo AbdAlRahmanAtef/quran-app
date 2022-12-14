@@ -1,16 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import axios from "axios";
 import { NextPage } from "next";
 import { SurahProps } from "../../utils/constents";
 import SurahDetails from "../../components/SurahDetails";
 
 interface IProps {
-  surah: SurahDetail;
+  surah: allProps;
 }
 
-interface SurahDetail extends SurahProps {
-  edition?: {};
-  numberOfAyahs?: number;
+interface allProps extends SurahProps {
+  numberOfAyahs: number;
 }
 
 const Detail: NextPage<IProps> = ({ surah }) => {

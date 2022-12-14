@@ -9,13 +9,15 @@ import Link from "next/link";
 import { converNumbers } from "../utils/convertNumbers";
 
 interface IProps {
-  surah: SurahProps;
+  surah: allProps;
+}
+
+interface allProps extends SurahProps {
+  numberOfAyahs: number;
 }
 
 const SurahDetails: NextPage<IProps> = ({ surah }) => {
-  const { name, number, ayahs, revelationType } = useAppSelector(
-    (state) => state.surahReducer.surah
-  );
+  const { number, ayahs, numberOfAyahs, revelationType } = surah;
 
   const [showDetails, setShowDetails] = useState(false);
   const [show, setShow] = useState(false);
@@ -52,20 +54,18 @@ const SurahDetails: NextPage<IProps> = ({ surah }) => {
           <span onClick={() => setShowDetails((prev) => !prev)}>
             <BsInfoCircleFill size={25} title={""} /> {` `} معلومات السورة
           </span>
-          {showDetails && (
-            <div className="details">
-              <p>
-                أسم السورة: <span>{name}</span>
-              </p>
-              <p>
-                عدد الأيات: <span>{converNumbers(ayahs.length)} آيات</span>
-              </p>
-              <p>
-                رقم السورة: <span>{converNumbers(number)}</span>
-              </p>
-              <p>المنزل: {revelationType === "Medinan" ? "مدنية" : "مكية"}</p>
-            </div>
-          )}
+          <div className={`details ${showDetails && "active"}`}>
+            <p>
+              أسم السورة: <span>{surah.name}</span>
+            </p>
+            <p>
+              عدد الأيات: <span>{converNumbers(numberOfAyahs)} آيات</span>
+            </p>
+            <p>
+              رقم السورة: <span>{converNumbers(surah.number)}</span>
+            </p>
+            <p>المنزل: {revelationType === "Medinan" ? "مدنية" : "مكية"}</p>
+          </div>
         </div>
         <div className="content">
           <p>

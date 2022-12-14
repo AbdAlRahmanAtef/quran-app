@@ -25,7 +25,7 @@ const Ayah = ({ surahData }: { surahData: allSurahProps }) => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [show, setShow] = useState<boolean>(false);
   const [showDetails, setShowDetails] = useState<boolean>(false);
-  const [prevented, setPrevented] = useState<number>(0);
+  const [prevented, setPrevented] = useState<string>("");
 
   const difference = number - numberInSurah;
 
@@ -60,30 +60,39 @@ const Ayah = ({ surahData }: { surahData: allSurahProps }) => {
       router.push(`/ayah/${ayahNumber + difference}`);
     }
 
-    setPrevented(0);
-
     setIsChangingAyah(false);
-  }, [ayahNumber, difference]);
+  }, [ayahNumber, difference, isChangingAyah]);
 
   const handleGoBack = () => {
+    setPrevented("");
+
     if (ayahNumber > 1) {
       setAyahNumber(ayahNumber - 1);
       setIsChangingAyah(true);
+
+      if (ayahNumber === 2) {
+        setPrevented("back");
+      }
     } else {
       setAyahNumber(1);
-      setPrevented(1);
+      setPrevented("back");
     }
   };
 
   const handleGoForward = () => {
+    setPrevented("");
     const max = ayahsArray[ayahsArray.length - 1];
 
     if (ayahNumber < max) {
       setAyahNumber(ayahNumber + 1);
       setIsChangingAyah(true);
+
+      if (ayahNumber === max - 1) {
+        setPrevented("forward");
+      }
     } else {
       setAyahNumber(max);
-      setPrevented(2);
+      setPrevented("forward");
     }
   };
 
@@ -174,14 +183,14 @@ const Ayah = ({ surahData }: { surahData: allSurahProps }) => {
         </div>
         <div className="navigation">
           <p
-            className={`${prevented === 1 && "prevented"}`}
+            className={`${prevented === "back" && "prevented"}`}
             onClick={handleGoBack}
           >
             <IoIosArrowForward />
             الآية السابقة
           </p>
           <p
-            className={`${prevented === 2 && "prevented"}`}
+            className={`${prevented === "forward" && "prevented"}`}
             onClick={handleGoForward}
           >
             الآية التالية <IoIosArrowBack />

@@ -13,7 +13,6 @@ import {
   changeServer,
 } from "../redux/slices/audioSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import axios from "axios";
 import Link from "next/link";
 
 interface IProps {
@@ -45,8 +44,8 @@ const AudioPlayer: NextPage<IProps> = ({
   downloadURL,
   isDownloadable,
 }) => {
-  const [time, setTime] = useState<any>(0);
-  const [duration, setDuration] = useState<any>(0);
+  const [time, setTime] = useState<number>(0);
+  const [duration, setDuration] = useState<number>(0);
   const [showMoreMenu, setShowMoreMenu] = useState(false);
   const [showReciterMenu, setShowReciterMenu] = useState<boolean>(false);
 
@@ -65,27 +64,9 @@ const AudioPlayer: NextPage<IProps> = ({
     dispatch(changeRewayat(reciter.rewayat));
     dispatch(changeServer(reciter.server));
     setIsPlaying(false);
-    audioRef.current.currentTime = 0;
-  };
 
-  const handleDownload = (src: string, fileName: number) => {
-    const req = axios
-      .get(src, {
-        responseType: "blob",
-      })
-      .then((res) => {
-        const url = window.URL.createObjectURL(
-          new Blob([res.data], {
-            type: res.headers["audio/mp3`"],
-          })
-        );
-
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute("download", `${fileName}.mp3`);
-        document.body.appendChild(link);
-        link.click();
-      });
+    console.log(audioRef.current.currentTime);
+    console.log(audioRef.current.duration);
   };
 
   useEffect(() => {
@@ -115,7 +96,7 @@ const AudioPlayer: NextPage<IProps> = ({
     document.addEventListener("mousedown", handler);
 
     return () => {
-      removeEventListener("mousedown", handler);
+      document.removeEventListener("mousedown", handler);
     };
   }, [show]);
 
@@ -165,7 +146,8 @@ const AudioPlayer: NextPage<IProps> = ({
       <div className="controles">
         <div className="duration">
           <span>
-            {secondsToTime(duration)} / {secondsToTime(time)}
+            {secondsToTime(audioRef.current?.duration)} /{" "}
+            {secondsToTime(audioRef.current?.currentTime)}
           </span>
         </div>
         <div className="play-pause">

@@ -137,8 +137,7 @@
       background-color: var(--dark-alt);
     }
     &::before {
-      content: "More";
-      content: "إيقاف";
+      content: "المزيد";
       z-index: 10;
       visibility: hidden;
       color: var(--dark);
@@ -226,7 +225,7 @@
   .progress {
     position: absolute;
     width: 100%;
-    height: 5px;
+    height: 3px;
     left: 0;
     top: 0;
     background-color: #777;
@@ -241,7 +240,7 @@
       z-index: 2;
     }
     .seek-par {
-      transition: .5s;
+      transition: 0.5s;
       position: absolute;
       top: 0;
       right: 0;

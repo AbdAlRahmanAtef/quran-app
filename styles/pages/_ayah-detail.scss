@@ -175,6 +175,7 @@
         font-size: 22px;
         border-bottom: 1px solid var(--dark-alt);
         padding: 20px 0 40px;
+        line-height: 1.8;
         span {
           height: 30px;
           width: 30px;
@@ -183,7 +184,8 @@
           align-items: center;
           justify-content: center;
           font-size: 14px;
-          border: 2px dotted;
+          color: var(--light-alt);
+          border: 2px dotted var(--light-alt);
         }
       }
       .tafsir-text {

@@ -31,12 +31,19 @@
         }
       }
       .details {
-        margin-top: 30px;
         width: 100%;
         text-align: right;
+        height: 0;
+        opacity: 0;
         border: 2px solid var(--dark-alt);
-        padding: 30px;
         border-radius: 10px;
+        &.active {
+          transition: 0.3s;
+          margin-top: 30px;
+          height: fit-content;
+          padding: 30px;
+          opacity: 1;
+        }
         p {
           margin-bottom: 20px;
           font-size: 20px;
@@ -55,9 +62,8 @@
       border: 2px solid var(--dark-alt);
       border-radius: 20px;
       text-align: center;
-      line-height: 2;
+      line-height: 1.8;
       font-size: 22px;
-      font-weight: bold;
       @media (max-width: 767px) {
         font-size: 20px;
       }
@@ -79,18 +85,18 @@
           }
         }
         span.ayah {
-          display: inline-flex;
-          margin-left: 5px;
-          justify-content: center;
-          align-items: center;
+          height: 30px;
+          width: 30px;
           border-radius: 50%;
-          font-size: 12px;
-          font-weight: bold;
-          height: 35px;
-          width: 35px;
-          border: 4px dotted var(--dark-alt);
+          margin-left: 5px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 14px;
+          color: var(--light-alt);
+          border: 2px dotted var(--light-alt);
         }
-      }
+        }
     }
   }
 }
