@@ -12,7 +12,13 @@ import {
 } from "../../utils/constents";
 import { converNumbers } from "../../utils/convertNumbers";
 
-const Ayah = ({ surahData }: { surahData: allSurahProps }) => {
+const Ayah = ({
+  surahData,
+  tafsirData,
+}: {
+  surahData: allSurahProps;
+  tafsirData: any;
+}) => {
   const { audio, audioSecondary, number, numberInSurah, surah, text } =
     surahData;
   const [tafsirName, setTafsirName] = useState<number>(1);
@@ -30,12 +36,10 @@ const Ayah = ({ surahData }: { surahData: allSurahProps }) => {
   const difference = number - numberInSurah;
 
   const router = useRouter();
+  console.log(tafsirData);
+  // const getAllTaypes = async () => {
 
-  const getAllTaypes = async () => {
-    await axios
-      .get(`http://api.quran-tafseer.com/tafseer`)
-      .then((response) => setTafsirTypes(response.data));
-  };
+  // };
 
   const getATafsir = async () => {
     await axios
@@ -45,16 +49,16 @@ const Ayah = ({ surahData }: { surahData: allSurahProps }) => {
       .then((response) => setTafsir(response.data));
   };
 
-  useEffect(() => {
-    getAllTaypes();
-  }, []);
+  // useEffect(() => {
+  //   getAllTaypes();
+  // }, []);
 
   useEffect(() => {
     getATafsir();
   }, [tafsirName, surah.number, ayahNumber]);
 
   console.log(tafsir);
-  console.log(tafsirTypes);
+  // console.log(tafsirTypes);
 
   useEffect(() => {
     let arr: number[] = [];
@@ -175,7 +179,7 @@ const Ayah = ({ surahData }: { surahData: allSurahProps }) => {
         </div>
 
         <div className="tafser-name">
-          {tafsirTypes?.slice(0, 8).map((tafsir: any) => (
+          {tafsirData?.slice(0, 8).map((tafsir: any) => (
             <p
               className={`${tafsirActive === tafsir.id && "active"}`}
               key={tafsir.id}
@@ -234,9 +238,12 @@ export const getServerSideProps = async ({
     `http://api.alquran.cloud/v1/ayah/${id}/ar.alafasy`
   );
 
+  const tafsir = await axios.get(`http://api.quran-tafseer.com/tafseer`);
+
   return {
     props: {
       surahData: data.data.data,
+      tafsirData: tafsir.data,
     },
   };
 };
