@@ -1,7 +1,6 @@
 import { NextPage } from "next";
 import Link from "next/link";
 import React from "react";
-import { useAppDispatch } from "../redux/hooks";
 import { SurahProps } from "../utils/constents";
 
 interface IProps {
@@ -10,8 +9,6 @@ interface IProps {
 
 const Surah: NextPage<IProps> = ({ surah }) => {
   const { number, ayahs, name } = surah;
-
-  const dispatch = useAppDispatch();
 
   const converNumbers = (num: any) => {
     const numbers = `۰۱۲۳٤٥٦٧۸۹`;
@@ -26,7 +23,7 @@ const Surah: NextPage<IProps> = ({ surah }) => {
   };
 
   return (
-    <Link href={`./detail/${number}`} className="surah ">
+    <Link href={`./detail/${number}`} className="surah">
       <div>
         <span className="number">
           <small>{converNumbers(number)}</small>

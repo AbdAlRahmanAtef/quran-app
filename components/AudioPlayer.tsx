@@ -48,6 +48,8 @@ const AudioPlayer: NextPage<IProps> = ({
   const [duration, setDuration] = useState<number>(0);
   const [showMoreMenu, setShowMoreMenu] = useState(false);
   const [showReciterMenu, setShowReciterMenu] = useState<boolean>(false);
+  const [URL, setURL] = useState<any>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const audioRef = useRef<any>();
   const clickRef = useRef<any>();
@@ -63,10 +65,8 @@ const AudioPlayer: NextPage<IProps> = ({
     dispatch(changeReciter(reciter.id));
     dispatch(changeRewayat(reciter.rewayat));
     dispatch(changeServer(reciter.server));
-    setIsPlaying(false);
 
-    console.log(audioRef.current.currentTime);
-    console.log(audioRef.current.duration);
+    setIsPlaying(false);
   };
 
   useEffect(() => {

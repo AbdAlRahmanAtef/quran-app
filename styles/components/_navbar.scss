@@ -22,18 +22,41 @@
     img {
       border-radius: 50%;
     }
-    .search {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      color: var(--light);
-      font-size: 25px;
+    > div {
       display: flex;
+      color: var(--light);
       align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      &:hover {
-        background-color: var(--dark);
+      gap: 10px;
+      > div {
+        display: flex;
+        flex-direction: column;
+        font-size: 14px;
+        p {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          cursor: pointer;
+          padding: 8px 10px;
+          border-radius: 8px;
+          transition: 0.3s;
+          &:hover {
+            background-color: var(--dark);
+          }
+        }
+      }
+      > p {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        color: var(--light);
+        font-size: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        &:hover {
+          background-color: var(--dark);
+        }
       }
     }
   }

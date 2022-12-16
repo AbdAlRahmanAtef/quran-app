@@ -1,10 +1,10 @@
 export const reciters = [
-  {
-    name: "إسلام صبحي",
-    id: "islam",
-    rewayat: "Rewayat-Hafs-A-n-Assem",
-    server: "14",
-  },
+  // {
+  //   name: "إسلام صبحي",
+  //   id: "islam",
+  //   rewayat: "Rewayat-Hafs-A-n-Assem",
+  //   server: "14",
+  // },
   {
     name: "  حسن صالح ",
     id: "mhsn-s-lh",
@@ -47,10 +47,10 @@ export const reciters = [
     rewayat: "",
     server: "11",
   },
-  {
-    name: " يونس اسويلص ",
-    id: "souilass",
-    rewayat: "Rewayat-Warsh-A-n-Nafi",
-    server: "16",
-  },
+  // {
+  //   name: " يونس اسويلص ",
+  //   id: "souilass",
+  //   rewayat: "Rewayat-Warsh-A-n-Nafi",
+  //   server: "16",
+  // },
 ];
