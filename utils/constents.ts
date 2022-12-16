@@ -5,6 +5,7 @@ export interface SurahProps {
   name: string;
   number: number;
   revelationType?: string;
+  numberOfAyahs: number;
 }
 
 export interface ayahProps {
