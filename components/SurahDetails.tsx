@@ -1,12 +1,13 @@
 import { NextPage } from "next";
 import React, { useState, useEffect, useRef } from "react";
 import { SurahProps } from "../utils/constents";
-import { BsInfoCircleFill, BsFillPlayFill } from "react-icons/bs";
+import { BsInfoCircleFill, BsFillPlayFill, BsBook } from "react-icons/bs";
 import { IoIosPause } from "react-icons/io";
 import AudioPlayer from "./AudioPlayer";
-import { useAppSelector } from "../redux/hooks";
-import Link from "next/link";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { handleTafsirStatus } from "../redux/slices/savedSurah";
 import { converNumbers } from "../utils/convertNumbers";
+import Link from "next/link";
 
 interface IProps {
   surah: allProps;
@@ -21,10 +22,16 @@ const SurahDetails: NextPage<IProps> = ({ surah }) => {
 
   const [showDetails, setShowDetails] = useState(false);
   const [show, setShow] = useState(false);
+  const [showTafsir, setShowTafsir] = useState<boolean>(true);
   const [surahNumber, setSurahNumber] = useState<string | number>();
   const [isPlaying, setIsPlaying] = useState(false);
 
   const { reciter, rewayat, server } = useAppSelector((state) => state.audio);
+  const dispatch = useAppDispatch();
+
+  const handleShowTafsir = () => {
+    setShowTafsir((prev) => !prev);
+  };
 
   useEffect(() => {
     setSurahNumber(number?.toString().padStart(3, "0"));
@@ -89,23 +96,23 @@ const SurahDetails: NextPage<IProps> = ({ surah }) => {
           </p>
           {ayahs?.map((ayah: any) =>
             ayah.numberInSurah === 1 ? (
-              <p key={ayah.number}>
-                <Link href={`../ayah/${ayah.number}`} key={ayah.number}>
-                  {ayah.text?.slice(40)}{" "}
-                </Link>
-                <span key={ayah.name} className="ayah">
-                  {converNumbers(ayah.numberInSurah)}
-                </span>
-              </p>
+              <Link
+                href={`/ayah/${ayah.number}`}
+                key={ayah.number}
+                className="ayah"
+              >
+                <p>{ayah.text?.slice(40)} </p>
+                <span>{converNumbers(ayah.numberInSurah)}</span>
+              </Link>
             ) : (
-              <p key={ayah.number}>
-                <Link href={`../ayah/${ayah.number}`} key={ayah.number}>
-                  {ayah.text}{" "}
-                </Link>
-                <span key={ayah.name} className="ayah">
-                  {converNumbers(ayah.numberInSurah)}
-                </span>
-              </p>
+              <Link
+                href={`/ayah/${ayah.number}`}
+                key={ayah.number}
+                className="ayah"
+              >
+                <p>{ayah.text} </p>
+                <span>{converNumbers(ayah.numberInSurah)}</span>
+              </Link>
             )
           )}
         </div>

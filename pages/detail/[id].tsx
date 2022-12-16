@@ -3,6 +3,7 @@ import axios from "axios";
 import { NextPage } from "next";
 import { SurahProps } from "../../utils/constents";
 import SurahDetails from "../../components/SurahDetails";
+import { useAppSelector } from "../../redux/hooks";
 
 interface IProps {
   surah: allProps;
@@ -13,9 +14,12 @@ interface allProps extends SurahProps {
 }
 
 const Detail: NextPage<IProps> = ({ surah }) => {
+  const { showTafsir } = useAppSelector((state) => state.saveSurah);
+
   return (
     <div>
       <SurahDetails surah={surah} />
+      {/* {showTafsir && <Ayah surah={surah} />} */}
     </div>
   );
 };

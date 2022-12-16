@@ -14,10 +14,12 @@ const storedItemValue = (): any => {
 
 interface IProps {
   currentSurah: any;
+  showTafsir: boolean;
 }
 
 const InitialState: IProps = {
   currentSurah: storedItemValue(),
+  showTafsir: false,
 };
 
 const saveJson = (number: any) => {
@@ -34,9 +36,12 @@ export const saveSurahSlice = createSlice({
       saveJson(action.payload);
       state.currentSurah = action.payload;
     },
+    handleTafsirStatus: (state, action: PayloadAction<boolean>) => {
+      state.showTafsir = action.payload;
+    },
   },
 });
 
-export const { saveSurah } = saveSurahSlice.actions;
+export const { saveSurah, handleTafsirStatus } = saveSurahSlice.actions;
 
 export default saveSurahSlice.reducer;
