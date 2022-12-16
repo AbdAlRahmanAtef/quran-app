@@ -29,7 +29,12 @@ const Navbar = () => {
   const searchIconRef = useRef<any>();
 
   useEffect(() => {
-    axios.get("http://api.alquran.cloud/v1/quran/quran-uthmani");
+    axios
+      .get("http://api.alquran.cloud/v1/quran/quran-uthmani")
+      .then((response) => {
+        const { surahs } = response.data.data;
+        setSurahsList(surahs);
+      });
   }, []);
 
   useEffect(() => {
@@ -76,7 +81,7 @@ const Navbar = () => {
     e.preventDefault();
     if (inputValue) {
       const searchTerm = surahsList.filter((surah: SurahProps) =>
-        surah.name.trim().includes(inputValue.trim())
+        surah.name.includes(inputValue)
       );
       router.push(`/detail/${searchTerm[0].number}`);
       searchInputRef.current.value = "";

@@ -31,7 +31,6 @@ export const saveSurahSlice = createSlice({
   initialState: InitialState,
   reducers: {
     saveSurah: (state, action: PayloadAction<any>) => {
-      console.log(storedItemValue());
       saveJson(action.payload);
       state.currentSurah = action.payload;
     },

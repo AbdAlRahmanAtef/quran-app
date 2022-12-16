@@ -10,7 +10,6 @@ import { SurahProps } from "../utils/constents";
 
 const Home: NextPage<any> = ({ data }) => {
   const surahsList = data.surahs;
-  const dispatch = useAppDispatch();
 
   const [inputValue, setInputValue] = useState<string>("");
 
@@ -21,9 +20,8 @@ const Home: NextPage<any> = ({ data }) => {
     e.preventDefault();
     if (inputValue) {
       const searchTerm = surahsList.filter((surah: SurahProps) =>
-        surah.name.trim().includes(inputValue.trim())
+        surah.name.includes(inputValue)
       );
-      // dispatch(handleCurrentSurah(searchTerm[0]));
       router.push(`/detail/${searchTerm[0].number}`);
       searchRef.current.value = "";
       setInputValue("");
