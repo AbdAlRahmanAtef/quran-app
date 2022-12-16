@@ -31,18 +31,26 @@ const Ayah = ({ surahData }: { surahData: allSurahProps }) => {
 
   const router = useRouter();
 
-  useEffect(() => {
-    axios
+  const getAllTaypes = async () => {
+    await axios
       .get(`http://api.quran-tafseer.com/tafseer`)
       .then((response) => setTafsirTypes(response.data));
-  }, []);
+  };
 
-  useEffect(() => {
-    axios
+  const getATafsir = async () => {
+    await axios
       .get(
         `http://api.quran-tafseer.com/tafseer/${tafsirName}/${surah.number}/${ayahNumber}`
       )
       .then((response) => setTafsir(response.data));
+  };
+
+  useEffect(() => {
+    getAllTaypes();
+  }, []);
+
+  useEffect(() => {
+    getATafsir();
   }, [tafsirName, surah.number, ayahNumber]);
 
   console.log(tafsir);
