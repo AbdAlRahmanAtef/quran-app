@@ -32,16 +32,21 @@ const Ayah = ({ surahData }: { surahData: allSurahProps }) => {
   const router = useRouter();
 
   useEffect(() => {
-    const req = axios
+    axios
+      .get(`http://api.quran-tafseer.com/tafseer`)
+      .then((response) => setTafsirTypes(response.data));
+  }, []);
+
+  useEffect(() => {
+    axios
       .get(
         `http://api.quran-tafseer.com/tafseer/${tafsirName}/${surah.number}/${ayahNumber}`
       )
       .then((response) => setTafsir(response.data));
+  }, [tafsirName, surah.number, ayahNumber]);
 
-    const tafsirList = axios
-      .get(`http://api.quran-tafseer.com/tafseer`)
-      .then((response) => setTafsirTypes(response.data));
-  }, [tafsirName, surah.number, ayahNumber, number, numberInSurah]);
+  console.log(tafsir);
+  console.log(tafsirTypes);
 
   useEffect(() => {
     let arr: number[] = [];
