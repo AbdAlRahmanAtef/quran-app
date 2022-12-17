@@ -170,7 +170,7 @@ const AyahC = ({
 
         <div className="tafser-name">
           {tafsirNamesList.length > 0 &&
-            tafsirNamesList.map((tafsir: any) => (
+            tafsirNamesList.slice(0, 8).map((tafsir: any) => (
               <p
                 className={`${tafsirActive === tafsir.id && "active"}`}
                 key={tafsir.id}
