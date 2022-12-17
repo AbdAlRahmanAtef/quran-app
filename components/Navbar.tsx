@@ -113,7 +113,7 @@ const Navbar = () => {
       </div>
       <form
         className={`search-bar ${show && "active"}`}
-        onSubmit={(e) => handleSearch(e)}
+        onSubmit={handleSearch}
         ref={searchFormRef}
       >
         <div className="container">
@@ -123,7 +123,7 @@ const Navbar = () => {
             ref={searchInputRef}
             onChange={(e) => setInputValue(e.target.value)}
           />
-          <div onClick={(e) => handleSearch(e)}>
+          <div onClick={handleSearch}>
             <FaSearch size={22} />
           </div>
         </div>
