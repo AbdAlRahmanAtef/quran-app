@@ -9,17 +9,29 @@ import { allSurahProps, SurahProps, tafsirProps } from "../utils/constents";
 import { converNumbers } from "../utils/convertNumbers";
 import { NextPage } from "next";
 
-interface IProps {
-  surahData: allSurahProps;
-}
+// interface IProps {
+//   surahData: allSurahProps;
+// }
 
-const AyahC: NextPage<IProps> = ({ surahData }) => {
+const AyahC = ({
+  ayahData,
+  tafsirList,
+  tafsirText,
+}: {
+  ayahData: any;
+  tafsirList: any;
+  tafsirText: any;
+}) => {
+  // console.log(ayahData);
+  // console.log(tafsir);
+  console.log(tafsirList);
+
   const { audio, audioSecondary, surah, number, numberInSurah, text } =
-    surahData;
+    ayahData;
   const [tafsirName, setTafsirName] = useState<number>(1);
-  const [ayahNumber, setAyahNumber] = useState<number>(+numberInSurah);
-  const [tafsirList, setTafsirList] = useState<any>([]);
-  const [tafsir, setTafsir] = useState<tafsirProps>();
+  // const [ayahNumber, setAyahNumber] = useState<number>(+numberInSurah);
+  // const [tafsirList, setTafsirList] = useState<any>([]);
+  // const [tafsir, setTafsir] = useState<tafsirProps>();
   const [ayahsArray, setAyahsArray] = useState<number[]>([]);
   const [tafsirActive, setTafsirActive] = useState<number>(1);
   const [isChangingAyah, setIsChangingAyah] = useState<boolean>(false);
@@ -28,87 +40,84 @@ const AyahC: NextPage<IProps> = ({ surahData }) => {
   const [showDetails, setShowDetails] = useState<boolean>(false);
   const [prevented, setPrevented] = useState<string>("");
 
-  const difference = number - numberInSurah;
+  // const difference = number - numberInSurah;
 
   const router = useRouter();
 
-  const getATafsir = async () => {
-    await axios
-      .get(
-        `http://api.quran-tafseer.com/tafseer/${tafsirName}/${surah.number}/${ayahNumber}`
-      )
-      .then((response) => setTafsir(response.data));
-  };
+  // const getATafsir = async () => {
+  //   await axios
+  //     .get(
+  //       `http://api.quran-tafseer.com/tafseer/${tafsirName}/${surah.number}/${ayahNumber}`
+  //     )
+  //     .then((response) => setTafsir(response.data));
+  // };
 
-  const getTafsirTypes = async () => {
-    await axios
-      .get(`http://api.quran-tafseer.com/tafseer`)
-      .then((response) => setTafsirList(response.data));
-  };
+  // const getTafsirTypes = async () => {
+  //   await axios
+  //     .get(`http://api.quran-tafseer.com/tafseer`)
+  //     .then((response) => setTafsirList(response.data));
+  // };
 
-  useEffect(() => {
-    getTafsirTypes();
-  }, []);
+  // useEffect(() => {
+  //   getTafsirTypes();
+  // }, []);
 
-  useEffect(() => {
-    getATafsir();
-  }, [tafsirName, surah.number, ayahNumber]);
+  // useEffect(() => {
+  //   getATafsir();
+  // }, [tafsirName, surah.number, ayahNumber]);
 
-  console.log(tafsir);
-  console.log(tafsirList);
+  // useEffect(() => {
+  //   let arr: number[] = [];
+  //   if (surah) {
+  //     for (let i = 1; i <= surah.numberOfAyahs; i++) {
+  //       arr.push(i);
+  //     }
+  //     setAyahsArray(arr);
+  //   }
 
-  useEffect(() => {
-    let arr: number[] = [];
-    if (surah) {
-      for (let i = 1; i <= surah.numberOfAyahs; i++) {
-        arr.push(i);
-      }
-      setAyahsArray(arr);
-    }
+  //   setIsPlaying(false);
+  // }, [surah]);
 
-    setIsPlaying(false);
-  }, [surah]);
+  // useEffect(() => {
+  //   if (isChangingAyah) {
+  //     router.push(`/ayah/${ayahNumber + difference}`);
+  //   }
 
-  useEffect(() => {
-    if (isChangingAyah) {
-      router.push(`/ayah/${ayahNumber + difference}`);
-    }
+  //   setIsChangingAyah(false);
+  // }, [ayahNumber, difference, isChangingAyah]);
 
-    setIsChangingAyah(false);
-  }, [ayahNumber, difference, isChangingAyah]);
+  // const handleGoBack = () => {
+  //   setPrevented("");
 
-  const handleGoBack = () => {
-    setPrevented("");
+  //   if (ayahNumber > 1) {
+  //     setAyahNumber(ayahNumber - 1);
+  //     setIsChangingAyah(true);
 
-    if (ayahNumber > 1) {
-      setAyahNumber(ayahNumber - 1);
-      setIsChangingAyah(true);
+  //     if (ayahNumber === 2) {
+  //       setPrevented("back");
+  //     }
+  //   } else {
+  //     setAyahNumber(1);
+  //     setPrevented("back");
+  //   }
+  // };
 
-      if (ayahNumber === 2) {
-        setPrevented("back");
-      }
-    } else {
-      setAyahNumber(1);
-      setPrevented("back");
-    }
-  };
+  // const handleGoForward = () => {
+  //   setPrevented("");
+  //   const max = ayahsArray[ayahsArray.length - 1];
 
-  const handleGoForward = () => {
-    setPrevented("");
-    const max = ayahsArray[ayahsArray.length - 1];
+  //   if (ayahNumber < max) {
+  //     setAyahNumber(ayahNumber + 1);
+  //     setIsChangingAyah(true);
 
-    if (ayahNumber < max) {
-      setAyahNumber(ayahNumber + 1);
-      setIsChangingAyah(true);
-
-      if (ayahNumber === max - 1) {
-        setPrevented("forward");
-      }
-    } else {
-      setAyahNumber(max);
-      setPrevented("forward");
-    }
-  };
+  //     if (ayahNumber === max - 1) {
+  //       setPrevented("forward");
+  //     }
+  //   } else {
+  //     setAyahNumber(max);
+  //     setPrevented("forward");
+  //   }
+  // };
 
   return (
     <div className="ayah-detail">
@@ -124,9 +133,9 @@ const AyahC: NextPage<IProps> = ({ surahData }) => {
           <p className="ayah">
             آية:
             <select
-              value={ayahNumber}
+              // value={ayahNumber}
               onChange={(e) => {
-                setAyahNumber(+e.target.value);
+                // setAyahNumber(+e.target.value);
                 setIsChangingAyah(true);
               }}
             >
@@ -194,19 +203,19 @@ const AyahC: NextPage<IProps> = ({ surahData }) => {
           <div className="ayah-text">
             {text} <span>{converNumbers(numberInSurah)}</span>
           </div>
-          <div className="tafsir-text">{tafsir?.text}</div>
+          <div className="tafsir-text">{tafsirText?.text}</div>
         </div>
         <div className="navigation">
           <p
             className={`${prevented === "back" && "prevented"}`}
-            onClick={handleGoBack}
+            // onClick={handleGoBack}
           >
             <IoIosArrowForward />
             الآية السابقة
           </p>
           <p
             className={`${prevented === "forward" && "prevented"}`}
-            onClick={handleGoForward}
+            // onClick={handleGoForward}
           >
             الآية التالية <IoIosArrowBack />
           </p>
