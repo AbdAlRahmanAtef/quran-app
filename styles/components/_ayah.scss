@@ -134,6 +134,12 @@
       }
     }
     .tafser-name {
+      ::-webkit-scrollbar {
+        width: 0;
+      }
+      ::-webkit-scrollbar-track {
+        width: 0;
+      }
       align-items: center;
       display: flex;
       max-width: 100%;
@@ -141,9 +147,6 @@
       flex-wrap: nowrap;
       gap: 20px;
       overflow-x: scroll;
-      &::-webkit-scrollbar {
-        width: 0;
-      }
       p {
         min-width: fit-content;
         transition: 0.3s;

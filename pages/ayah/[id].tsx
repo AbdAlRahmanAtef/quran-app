@@ -1,15 +1,23 @@
 import axios from "axios";
+import { NextPage } from "next";
 import React from "react";
 import AyahC from "../../components/AyahC";
+import {
+  allAyahProps,
+  tafsirProps,
+  tafsirTypeProps,
+} from "../../utils/constents";
 
-const Ayah = ({
+interface IProps {
+  ayahData: allAyahProps;
+  tafsirNamesList: tafsirTypeProps[];
+  tafsirTextList: tafsirProps[];
+}
+
+const Ayah: NextPage<IProps> = ({
   ayahData,
   tafsirNamesList,
   tafsirTextList,
-}: {
-  ayahData: any;
-  tafsirNamesList: any;
-  tafsirTextList: any;
 }) => {
   return (
     <AyahC
@@ -23,7 +31,7 @@ const Ayah = ({
 export const getServerSideProps = async ({
   params: { id },
 }: {
-  params: { id: any };
+  params: { id: string | number };
 }) => {
   const ayah = await axios.get(
     `http://api.alquran.cloud/v1/ayah/${id}/ar.alafasy`

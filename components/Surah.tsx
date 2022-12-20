@@ -10,13 +10,13 @@ interface IProps {
 const Surah: NextPage<IProps> = ({ surah }) => {
   const { number, ayahs, name } = surah;
 
-  const converNumbers = (num: any) => {
+  const converNumbers = (num: number) => {
     const numbers = `۰۱۲۳٤٥٦٧۸۹`;
 
     let finalNumber: string = "";
 
     for (let c of num.toString()) {
-      finalNumber += numbers.charAt(c);
+      finalNumber += numbers.charAt(+c);
     }
 
     return finalNumber;

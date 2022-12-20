@@ -15,7 +15,7 @@ export interface ayahProps {
   numberInSurah?: number;
 }
 
-export interface allSurahProps {
+export interface allAyahProps {
   audio: string;
   audioSecondary: string[];
   number: number;

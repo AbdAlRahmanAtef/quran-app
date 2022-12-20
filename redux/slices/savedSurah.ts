@@ -1,3 +1,4 @@
+import { SurahProps } from "./../../utils/constents";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const storedItemKey = "CURRENT_SAVED_SURAH";
@@ -13,20 +14,20 @@ const storedItemValue = (): any => {
 };
 
 interface IProps {
-  currentSurah: any;
+  currentSurah: string | number;
   currentSurahId: string | number;
   showTafsir: boolean;
-  surahs: any;
+  surahs: SurahProps[];
 }
 
 const InitialState: IProps = {
-  currentSurah: storedItemValue(),
+  currentSurah: storedItemValue() || 1,
   showTafsir: false,
   currentSurahId: "",
   surahs: [],
 };
 
-const saveJson = (number: any) => {
+const saveJson = (number: string | number) => {
   if (typeof window !== "undefined") {
     localStorage.setItem(storedItemKey, JSON.stringify(number));
   }
@@ -40,23 +41,16 @@ export const saveSurahSlice = createSlice({
       saveJson(action.payload);
       state.currentSurah = action.payload;
     },
-    handleTafsirStatus: (state, action: PayloadAction<boolean>) => {
-      state.showTafsir = action.payload;
-    },
     handleCurrentSurah: (state, action: PayloadAction<string | number>) => {
       state.currentSurahId = action.payload;
     },
-    getAllSurahs: (state, action: PayloadAction<any>) => {
+    getAllSurahs: (state, action: PayloadAction<SurahProps[]>) => {
       state.surahs = action.payload;
     },
   },
 });
 
-export const {
-  saveSurah,
-  handleTafsirStatus,
-  getAllSurahs,
-  handleCurrentSurah,
-} = saveSurahSlice.actions;
+export const { saveSurah, getAllSurahs, handleCurrentSurah } =
+  saveSurahSlice.actions;
 
 export default saveSurahSlice.reducer;

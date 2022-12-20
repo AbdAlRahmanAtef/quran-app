@@ -17,6 +17,7 @@ const Navbar = () => {
   const [inputValue, setInputValue] = useState<string>("");
   const [currentNumber, setCurrentNumber] = useState<any>("");
   const [isTransfering, setIsTransfering] = useState<boolean>(false);
+  const [showSaveSign, setShowSaveSign] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -30,6 +31,7 @@ const Navbar = () => {
   useEffect(() => {
     if (router.pathname.slice(1, 7) === "detail") {
       setCurrentNumber(router.query.id);
+      setShowSaveSign(true);
     }
   }, [router]);
 
@@ -74,7 +76,6 @@ const Navbar = () => {
         surah.name.includes(inputValue)
       );
       router.push(`/detail/${searchTerm[0].number}`);
-      searchInputRef.current.value = "";
       setInputValue("");
       setShow(false);
     }
@@ -92,11 +93,17 @@ const Navbar = () => {
             <p onClick={() => setIsTransfering(true)}>
               انتقل الي علامة <BsBookmark />
             </p>
-            <p onClick={() => dispatch(saveSurah(currentNumber))}>
-              حفظ علامة <BsBookmark />
-            </p>
+            {showSaveSign && (
+              <p onClick={() => dispatch(saveSurah(currentNumber))}>
+                حفظ علامة <BsBookmark />
+              </p>
+            )}
           </div>
-          <p className="search" ref={searchIconRef}>
+          <p
+            className="search"
+            ref={searchIconRef}
+            onClick={() => searchInputRef.current.focus()}
+          >
             <FaSearch />
           </p>
         </div>

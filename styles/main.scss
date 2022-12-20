@@ -6,7 +6,7 @@
 @use "./components/surah";
 @use "./components/surahDetails";
 @use "./components/audio-player";
-@use "./pages/ayah-detail";
+@use "./components/ayah";
 
 * {
   padding: 0;
@@ -33,11 +33,12 @@ a {
 }
 main {
   margin-top: 80px;
+  min-height: calc(100vh - 140px);
+  background-color: var(--dark);
 }
 .app {
   background-color: #000;
   margin: auto;
-  min-height: 100vh;
   color: var(--light);
   overflow: hidden;
 
@@ -97,5 +98,19 @@ main {
         }
       }
     }
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background-color: #000;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--light);
+  border-radius: 4px;
+  &:hover {
+    background-color: rgb(211, 205, 205);
   }
 }

@@ -5,27 +5,24 @@ import { BsFillPlayFill, BsInfoCircleFill } from "react-icons/bs";
 import { IoIosArrowBack, IoIosArrowForward, IoIosPause } from "react-icons/io";
 import { MdOutlineCancel } from "react-icons/md";
 import AudioPlayer from "./AudioPlayer";
-import { allSurahProps, SurahProps, tafsirProps } from "../utils/constents";
+import { allAyahProps, tafsirProps, tafsirTypeProps } from "../utils/constents";
 import { converNumbers } from "../utils/convertNumbers";
 import { NextPage } from "next";
 
-// interface IProps {
-//   surahData: allSurahProps;
-// }
+interface IProps {
+  ayahData: allAyahProps;
+  tafsirNamesList: tafsirTypeProps[];
+  tafsirTextList: tafsirProps[];
+}
 
-const AyahC = ({
+const AyahC: NextPage<IProps> = ({
   ayahData,
   tafsirNamesList,
   tafsirTextList,
-}: {
-  ayahData: any;
-  tafsirNamesList: any;
-  tafsirTextList: any;
 }) => {
   const { audio, audioSecondary, surah, number, numberInSurah, text } =
     ayahData;
   const [ayahNumber, setAyahNumber] = useState<number>(+numberInSurah);
-  // const [tafsirList, setTafsirList] = useState<any>([]);
   const [tafsir, setTafsir] = useState<tafsirProps>();
   const [ayahsArray, setAyahsArray] = useState<number[]>([]);
   const [tafsirActive, setTafsirActive] = useState<number>(1);
@@ -39,9 +36,9 @@ const AyahC = ({
 
   const router = useRouter();
 
-  const handleCurrentTafsir = (id: any) => {
+  const handleCurrentTafsir = (id: number) => {
     let currentTafsir = tafsirTextList.filter(
-      (item: any) => item.tafseer_id === id
+      (item: tafsirProps) => item.tafseer_id === id
     );
     setTafsir(currentTafsir[0]);
   };
@@ -170,7 +167,7 @@ const AyahC = ({
 
         <div className="tafser-name">
           {tafsirNamesList.length > 0 &&
-            tafsirNamesList.slice(0, 8).map((tafsir: any) => (
+            tafsirNamesList.slice(0, 8).map((tafsir: tafsirTypeProps) => (
               <p
                 className={`${tafsirActive === tafsir.id && "active"}`}
                 key={tafsir.id}

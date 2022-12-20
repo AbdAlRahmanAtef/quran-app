@@ -11,7 +11,7 @@ import { SurahProps } from "../utils/constents";
 
 const Home: NextPage<any> = ({ data }) => {
   const dispatch = useAppDispatch();
-  const surahsList = data.surahs;
+  const surahsList: SurahProps[] = data.surahs;
 
   useEffect(() => {
     dispatch(getAllSurahs(surahsList));
@@ -20,7 +20,7 @@ const Home: NextPage<any> = ({ data }) => {
   const [inputValue, setInputValue] = useState<string>("");
 
   const router = useRouter();
-  const searchRef = useRef<any>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
 
   const handleSearch = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -29,7 +29,6 @@ const Home: NextPage<any> = ({ data }) => {
         surah.name.includes(inputValue)
       );
       router.push(`/detail/${searchTerm[0].number}`);
-      searchRef.current.value = "";
       setInputValue("");
     }
   };

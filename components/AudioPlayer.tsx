@@ -48,7 +48,7 @@ const AudioPlayer: NextPage<IProps> = ({
   const [duration, setDuration] = useState<number>(0);
   const [showMoreMenu, setShowMoreMenu] = useState(false);
   const [showReciterMenu, setShowReciterMenu] = useState<boolean>(false);
-  const [URL, setURL] = useState<any>("");
+  const [currentTime, setCurrentTime] = useState<any>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const audioRef = useRef<any>();
@@ -74,6 +74,16 @@ const AudioPlayer: NextPage<IProps> = ({
       audioRef.current.play();
     } else {
       audioRef.current.pause();
+    }
+
+    if (isPlaying) {
+      setInterval(() => {
+        const _duration = Math.floor(audioRef?.current?.duration);
+        const _elapsed = Math.floor(audioRef?.current?.currentTime);
+
+        setDuration(_duration);
+        setCurrentTime(_elapsed);
+      }, 100);
     }
   }, [isPlaying, setIsPlaying]);
 
@@ -105,7 +115,7 @@ const AudioPlayer: NextPage<IProps> = ({
     const time = audioRef.current.currentTime;
 
     setDuration(duration);
-    setTime(time);
+    setCurrentTime(time);
   };
 
   const checkClick = (e: any) => {
@@ -115,22 +125,25 @@ const AudioPlayer: NextPage<IProps> = ({
 
       const progress = (offset / width) * 100;
       audioRef.current.currentTime = (progress / 100) * duration;
-      setTime(audioRef.current.currentTime);
+      setCurrentTime(audioRef.current.currentTime);
     }
   };
 
   const secondsToTime = (sec: number) => {
-    const h = Math.floor(sec / 3600);
+    if (sec && !isNaN(sec)) {
+      const h = Math.floor(sec / 3600);
 
-    const m = Math.floor((sec % 3600) / 60)
-      .toString()
-      .padStart(2, "0");
+      const m = Math.floor((sec % 3600) / 60)
+        .toString()
+        .padStart(2, "0");
 
-    const s = Math.floor(sec % 60)
-      .toString()
-      .padStart(2, "0");
+      const s = Math.floor(sec % 60)
+        .toString()
+        .padStart(2, "0");
 
-    return `${h > 0 ? h + ":" : ""}${m}:${s}`;
+      return `${h > 0 ? h + ":" : ""}${m}:${s}`;
+    }
+    return "00:00";
   };
 
   if (typeof window !== "undefined") {
@@ -146,8 +159,7 @@ const AudioPlayer: NextPage<IProps> = ({
       <div className="controles">
         <div className="duration">
           <span>
-            {secondsToTime(audioRef.current?.duration)} /{" "}
-            {secondsToTime(audioRef.current?.currentTime)}
+            {secondsToTime(duration)} / {secondsToTime(currentTime)}
           </span>
         </div>
         <div className="play-pause">
@@ -216,7 +228,7 @@ const AudioPlayer: NextPage<IProps> = ({
         ></div>
         <div
           className="seek-par"
-          style={{ width: `${(time / duration) * 100 + "%"}` }}
+          style={{ width: `${(currentTime / duration) * 100 + "%"}` }}
           ref={progerssRef}
         ></div>
       </div>
