@@ -76,15 +76,12 @@ const AudioPlayer: NextPage<IProps> = ({
       audioRef.current.pause();
     }
 
-    if (isPlaying) {
-      setInterval(() => {
-        const _duration = Math.floor(audioRef?.current?.duration);
-        const _elapsed = Math.floor(audioRef?.current?.currentTime);
-
-        setDuration(_duration);
-        setCurrentTime(_elapsed);
-      }, 100);
-    }
+    // if (isPlaying) {
+    //   const _duration = Math.floor(audioRef?.current?.duration);
+    //   const _elapsed = Math.floor(audioRef?.current?.currentTime);
+    //   setDuration(_duration);
+    //   setCurrentTime(_elapsed);
+    // }
   }, [isPlaying, setIsPlaying]);
 
   useEffect(() => {
