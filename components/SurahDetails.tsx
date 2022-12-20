@@ -5,7 +5,6 @@ import { BsInfoCircleFill, BsFillPlayFill, BsBook } from "react-icons/bs";
 import { IoIosPause } from "react-icons/io";
 import AudioPlayer from "./AudioPlayer";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { handleTafsirStatus } from "../redux/slices/savedSurah";
 import { converNumbers } from "../utils/convertNumbers";
 import Link from "next/link";
 
