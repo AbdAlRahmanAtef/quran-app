@@ -1,15 +1,21 @@
 import axios from "axios";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import Landing from "../components/Landing";
 import Surah from "../components/Surah";
 import { useAppDispatch } from "../redux/hooks";
+import { getAllSurahs } from "../redux/slices/savedSurah";
 import { SurahProps } from "../utils/constents";
 
 const Home: NextPage<any> = ({ data }) => {
+  const dispatch = useAppDispatch();
   const surahsList = data.surahs;
+
+  useEffect(() => {
+    dispatch(getAllSurahs(surahsList));
+  }, []);
 
   const [inputValue, setInputValue] = useState<string>("");
 

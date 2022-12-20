@@ -15,27 +15,17 @@ const Navbar = () => {
   const [width, setWidth] = useState<string>("");
   const [show, setShow] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>("");
-  const [surahsList, setSurahsList] = useState<SurahProps[]>([]);
   const [currentNumber, setCurrentNumber] = useState<any>("");
   const [isTransfering, setIsTransfering] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const { currentSurah } = useAppSelector((state) => state.saveSurah);
+  const { currentSurah, surahs } = useAppSelector((state) => state.saveSurah);
 
   const searchInputRef = useRef<any>();
   const searchFormRef = useRef<any>();
   const searchIconRef = useRef<any>();
-
-  useEffect(() => {
-    axios
-      .get("http://api.alquran.cloud/v1/quran/quran-uthmani")
-      .then((response) => {
-        const { surahs } = response.data.data;
-        setSurahsList(surahs);
-      });
-  }, []);
 
   useEffect(() => {
     if (router.pathname.slice(1, 7) === "detail") {
@@ -80,7 +70,7 @@ const Navbar = () => {
   const handleSearch = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (inputValue) {
-      const searchTerm = surahsList.filter((surah: SurahProps) =>
+      const searchTerm = surahs.filter((surah: SurahProps) =>
         surah.name.includes(inputValue)
       );
       router.push(`/detail/${searchTerm[0].number}`);
