@@ -1,6 +1,10 @@
 .ayah-detail {
   background-color: var(--dark);
   padding: 50px 15px;
+  overflow: hidden;
+  // &::-webkit-scrollbar {
+  //   width: 0;
+  // }
   .content-container {
     max-width: 440px;
     margin: auto;
@@ -134,11 +138,8 @@
       }
     }
     .tafser-name {
-      ::-webkit-scrollbar {
-        width: 0;
-      }
-      ::-webkit-scrollbar-track {
-        width: 0;
+      &::-webkit-scrollbar {
+        width: 0px;
       }
       align-items: center;
       display: flex;
