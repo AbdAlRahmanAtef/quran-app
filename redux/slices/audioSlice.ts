@@ -5,12 +5,14 @@ export interface InitialState {
   reciter: string;
   server: string;
   rewayat: string;
+  isLoading: boolean;
 }
 
 const initialState: InitialState = {
   reciter: "yasser",
   rewayat: "",
   server: "11",
+  isLoading: false,
 };
 
 export const audioSlice = createSlice({
@@ -26,10 +28,13 @@ export const audioSlice = createSlice({
     changeRewayat: (state, action: PayloadAction<string>) => {
       state.rewayat = action.payload;
     },
+    handleIsLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+    },
   },
 });
 
-export const { changeReciter, changeServer, changeRewayat } =
+export const { changeReciter, changeServer, changeRewayat, handleIsLoading } =
   audioSlice.actions;
 
 export default audioSlice.reducer;

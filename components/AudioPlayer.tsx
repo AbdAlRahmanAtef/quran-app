@@ -1,6 +1,5 @@
 import { NextPage } from "next";
 import React, { useRef, useEffect, useState, ReactEventHandler } from "react";
-import { BsFillPlayFill } from "react-icons/bs";
 import { IoIosArrowBack, IoIosPause, IoMdClose } from "react-icons/io";
 import { HiOutlineDownload } from "react-icons/hi";
 import { FiMoreHorizontal } from "react-icons/fi";
@@ -11,9 +10,12 @@ import {
   changeReciter,
   changeRewayat,
   changeServer,
+  handleIsLoading,
 } from "../redux/slices/audioSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import Link from "next/link";
+import Loader from "./Loader";
+import { BsFillPlayFill } from "react-icons/bs";
 
 interface IProps {
   src: string;
@@ -44,12 +46,10 @@ const AudioPlayer: NextPage<IProps> = ({
   downloadURL,
   isDownloadable,
 }) => {
-  const [time, setTime] = useState<number>(0);
   const [duration, setDuration] = useState<number>(0);
   const [showMoreMenu, setShowMoreMenu] = useState(false);
   const [showReciterMenu, setShowReciterMenu] = useState<boolean>(false);
   const [currentTime, setCurrentTime] = useState<any>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const audioRef = useRef<any>();
   const clickRef = useRef<any>();
@@ -59,7 +59,9 @@ const AudioPlayer: NextPage<IProps> = ({
   const showMoreMenuIconRef = useRef<any>();
 
   const dispatch = useAppDispatch();
-  const { reciter: currentReciter } = useAppSelector((state) => state.audio);
+  const { reciter: currentReciter, isLoading } = useAppSelector(
+    (state) => state.audio
+  );
 
   const handleChangeReciter = (reciter: RProps) => {
     dispatch(changeReciter(reciter.id));
@@ -75,14 +77,15 @@ const AudioPlayer: NextPage<IProps> = ({
     } else {
       audioRef.current.pause();
     }
-
-    // if (isPlaying) {
-    //   const _duration = Math.floor(audioRef?.current?.duration);
-    //   const _elapsed = Math.floor(audioRef?.current?.currentTime);
-    //   setDuration(_duration);
-    //   setCurrentTime(_elapsed);
-    // }
   }, [isPlaying, setIsPlaying]);
+
+  useEffect(() => {
+    if (isNaN(audioRef.current.duration)) {
+      dispatch(handleIsLoading(true));
+    } else {
+      dispatch(handleIsLoading(false));
+    }
+  }, [audioRef?.current?.duration]);
 
   useEffect(() => {
     const handler = (e: Event) => {
@@ -160,7 +163,9 @@ const AudioPlayer: NextPage<IProps> = ({
           </span>
         </div>
         <div className="play-pause">
-          {isPlaying ? (
+          {isLoading ? (
+            <Loader />
+          ) : isPlaying ? (
             <span className={`play`} onClick={() => setIsPlaying(false)}>
               <IoIosPause size={30} />
             </span>

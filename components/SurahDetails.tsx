@@ -7,6 +7,7 @@ import AudioPlayer from "./AudioPlayer";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { converNumbers } from "../utils/convertNumbers";
 import Link from "next/link";
+import Loader from "./Loader";
 
 interface IProps {
   surah: allProps;
@@ -21,16 +22,13 @@ const SurahDetails: NextPage<IProps> = ({ surah }) => {
 
   const [showDetails, setShowDetails] = useState(false);
   const [show, setShow] = useState(false);
-  const [showTafsir, setShowTafsir] = useState<boolean>(true);
   const [surahNumber, setSurahNumber] = useState<string | number>();
   const [isPlaying, setIsPlaying] = useState(false);
 
+  const { isLoading } = useAppSelector((state) => state.audio);
+
   const { reciter, rewayat, server } = useAppSelector((state) => state.audio);
   const dispatch = useAppDispatch();
-
-  const handleShowTafsir = () => {
-    setShowTafsir((prev) => !prev);
-  };
 
   useEffect(() => {
     setSurahNumber(number?.toString().padStart(3, "0"));
@@ -41,6 +39,11 @@ const SurahDetails: NextPage<IProps> = ({ surah }) => {
       <div className="container">
         <h2>{surah.name}</h2>
         <div className="info">
+          {isLoading && (
+            <span>
+              <Loader />
+            </span>
+          )}
           {isPlaying ? (
             <span onClick={() => setIsPlaying(false)}>
               إيقاف الصوت

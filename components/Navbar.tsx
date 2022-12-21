@@ -1,15 +1,18 @@
-import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState, useEffect, useRef } from "react";
-import { BiSave } from "react-icons/bi";
 import { BsBookmark } from "react-icons/bs";
 import { FaSearch } from "react-icons/fa";
 import logo from "../assets/logo.jpeg";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { saveSurah } from "../redux/slices/savedSurah";
-import { SurahProps } from "../utils/constents";
+import { surahsNames } from "../utils/surahsNames";
+
+interface surahName {
+  name: string;
+  number: number;
+}
 
 const Navbar = () => {
   const [width, setWidth] = useState<string>("");
@@ -22,7 +25,7 @@ const Navbar = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const { currentSurah, surahs } = useAppSelector((state) => state.saveSurah);
+  const { currentSurah } = useAppSelector((state) => state.saveSurah);
 
   const searchInputRef = useRef<any>();
   const searchFormRef = useRef<any>();
@@ -32,6 +35,8 @@ const Navbar = () => {
     if (router.pathname.slice(1, 7) === "detail") {
       setCurrentNumber(router.query.id);
       setShowSaveSign(true);
+    } else {
+      setShowSaveSign(false);
     }
   }, [router]);
 
@@ -72,7 +77,7 @@ const Navbar = () => {
   const handleSearch = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (inputValue) {
-      const searchTerm = surahs.filter((surah: SurahProps) =>
+      const searchTerm = surahsNames.filter((surah: surahName) =>
         surah.name.includes(inputValue)
       );
       router.push(`/detail/${searchTerm[0].number}`);

@@ -16,15 +16,11 @@ const storedItemValue = (): any => {
 interface IProps {
   currentSurah: string | number;
   currentSurahId: string | number;
-  showTafsir: boolean;
-  surahs: SurahProps[];
 }
 
 const InitialState: IProps = {
   currentSurah: storedItemValue() || 1,
-  showTafsir: false,
   currentSurahId: "",
-  surahs: [],
 };
 
 const saveJson = (number: string | number) => {
@@ -44,13 +40,9 @@ export const saveSurahSlice = createSlice({
     handleCurrentSurah: (state, action: PayloadAction<string | number>) => {
       state.currentSurahId = action.payload;
     },
-    getAllSurahs: (state, action: PayloadAction<SurahProps[]>) => {
-      state.surahs = action.payload;
-    },
   },
 });
 
-export const { saveSurah, getAllSurahs, handleCurrentSurah } =
-  saveSurahSlice.actions;
+export const { saveSurah, handleCurrentSurah } = saveSurahSlice.actions;
 
 export default saveSurahSlice.reducer;

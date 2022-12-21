@@ -6,16 +6,20 @@ import { FaSearch } from "react-icons/fa";
 import Landing from "../components/Landing";
 import Surah from "../components/Surah";
 import { useAppDispatch } from "../redux/hooks";
-import { getAllSurahs } from "../redux/slices/savedSurah";
 import { SurahProps } from "../utils/constents";
+import { surahsNames } from "../utils/surahsNames";
 
-const Home: NextPage<any> = ({ data }) => {
+interface surahName {
+  name: string;
+  number: number;
+}
+
+interface IProps {
+  surahs: SurahProps[];
+}
+
+const Home: NextPage<IProps> = ({ surahs }) => {
   const dispatch = useAppDispatch();
-  const surahsList: SurahProps[] = data.surahs;
-
-  useEffect(() => {
-    dispatch(getAllSurahs(surahsList));
-  }, []);
 
   const [inputValue, setInputValue] = useState<string>("");
 
@@ -25,7 +29,7 @@ const Home: NextPage<any> = ({ data }) => {
   const handleSearch = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (inputValue) {
-      const searchTerm = surahsList.filter((surah: SurahProps) =>
+      const searchTerm = surahsNames.filter((surah: surahName) =>
         surah.name.includes(inputValue)
       );
       router.push(`/detail/${searchTerm[0].number}`);
@@ -49,10 +53,10 @@ const Home: NextPage<any> = ({ data }) => {
           </span>
         </div>
       </form>
-      {surahsList.length > 0 && (
+      {surahs?.length > 0 && (
         <div className="surahs-list">
           <div className="container">
-            {surahsList.map((item: SurahProps) => (
+            {surahs?.map((item: SurahProps) => (
               <Surah key={item.number.toString()} surah={item} />
             ))}
           </div>
@@ -69,7 +73,7 @@ export const getStaticProps = async () => {
 
   return {
     props: {
-      data: data.data.data,
+      surahs: data.data.data.surahs,
     },
   };
 };
