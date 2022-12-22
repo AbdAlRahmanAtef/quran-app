@@ -185,7 +185,7 @@ const AyahC: NextPage<IProps> = ({
         </div>
         <div className="tafsir">
           <div className="ayah-text">
-            {text} <span>﴿ {`${converNumbers(numberInSurah)}`} ﴾</span>
+            {text} <span> {`${converNumbers(numberInSurah)}`} ﴾</span>
           </div>
           <div className="tafsir-text">{tafsir?.text}</div>
         </div>
