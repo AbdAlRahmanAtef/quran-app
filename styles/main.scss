@@ -18,7 +18,7 @@
 }
 
 :root {
-  --dark: #1f2125;
+  --dark: #131415;
   --dark-alt: #343a40;
   --light: #e7e9ea;
   --light-alt: #b5b5cc;
@@ -52,7 +52,7 @@ main {
   background-color: var(--dark);
 }
 .app {
-  background-color: #000;
+  background-color: var(--dark);
   margin: auto;
   color: var(--light);
   overflow: hidden;
