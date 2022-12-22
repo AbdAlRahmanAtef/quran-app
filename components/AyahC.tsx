@@ -8,6 +8,8 @@ import AudioPlayer from "./AudioPlayer";
 import { allAyahProps, tafsirProps, tafsirTypeProps } from "../utils/constents";
 import { converNumbers } from "../utils/convertNumbers";
 import { NextPage } from "next";
+import { useAppSelector } from "../redux/hooks";
+import Loader from "./Loader";
 
 interface IProps {
   ayahData: allAyahProps;
@@ -31,6 +33,8 @@ const AyahC: NextPage<IProps> = ({
   const [show, setShow] = useState<boolean>(false);
   const [showDetails, setShowDetails] = useState<boolean>(false);
   const [prevented, setPrevented] = useState<string>("");
+
+  const { isLoading } = useAppSelector((state) => state.audio);
 
   const difference = number - numberInSurah;
 
@@ -132,7 +136,7 @@ const AyahC: NextPage<IProps> = ({
         <div className="info">
           {isPlaying ? (
             <span onClick={() => setIsPlaying(false)}>
-              <IoIosPause size={25} />
+              {isLoading ? <Loader /> : <IoIosPause size={22} />}
               إيقاف الصوت
             </span>
           ) : (
@@ -142,12 +146,12 @@ const AyahC: NextPage<IProps> = ({
                 setIsPlaying(true);
               }}
             >
-              <BsFillPlayFill size={25} />
+              <BsFillPlayFill size={22} />
               تشغيل الصوت
             </span>
           )}
           <span onClick={() => setShowDetails((prev) => !prev)}>
-            <BsInfoCircleFill size={22} title={""} /> {` `} معلومات السورة
+            <BsInfoCircleFill size={18} title={""} /> {` `} معلومات السورة
           </span>
           <div className={`details ${showDetails && "active"}`}>
             <p>
@@ -181,7 +185,7 @@ const AyahC: NextPage<IProps> = ({
         </div>
         <div className="tafsir">
           <div className="ayah-text">
-            {text} <span>{converNumbers(numberInSurah)}</span>
+            {text} <span>﴿ {`${converNumbers(numberInSurah)}`} ﴾</span>
           </div>
           <div className="tafsir-text">{tafsir?.text}</div>
         </div>

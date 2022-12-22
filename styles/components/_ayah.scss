@@ -26,17 +26,19 @@
         content: "عد الى السورة";
         visibility: hidden;
         position: absolute;
+        z-index: 2000;
         padding: 10px 15px;
+        display: flex;
         align-items: center;
         justify-content: center;
-        width: 90px;
         border-radius: 6px;
+        width: 80px;
         color: var(--dark);
         background-color: var(--light);
         font-size: 14px;
         font-weight: bold;
         left: 50%;
-        top: -45px;
+        top: -55px;
         transform: translateX(-50%);
         transition: 0.3s;
       }
@@ -44,10 +46,11 @@
         content: "";
         visibility: hidden;
         position: absolute;
+        z-index: 2000;
         width: 20px;
         height: 15px;
         background-color: var(--light);
-        top: -7px;
+        top: -10px;
         left: 50%;
         transform: translateX(-50%);
         clip-path: polygon(50% 50%, 0 0, 100% 0);
@@ -181,15 +184,8 @@
         padding: 20px 0 40px;
         line-height: 1.8;
         span {
-          height: 30px;
-          width: 30px;
-          border-radius: 50%;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 14px;
           color: var(--light-alt);
-          border: 2px dotted var(--light-alt);
+          font-size: 1.5rem;
         }
       }
       .tafsir-text {

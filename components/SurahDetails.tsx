@@ -25,10 +25,9 @@ const SurahDetails: NextPage<IProps> = ({ surah }) => {
   const [surahNumber, setSurahNumber] = useState<string | number>();
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const { isLoading } = useAppSelector((state) => state.audio);
-
-  const { reciter, rewayat, server } = useAppSelector((state) => state.audio);
-  const dispatch = useAppDispatch();
+  const { reciter, rewayat, server, isLoading } = useAppSelector(
+    (state) => state.audio
+  );
 
   useEffect(() => {
     setSurahNumber(number?.toString().padStart(3, "0"));
@@ -37,17 +36,12 @@ const SurahDetails: NextPage<IProps> = ({ surah }) => {
   return (
     <div className="surah-details">
       <div className="container">
-        <h2>{surah.name}</h2>
+        <p className="surah-name">{surah.name}</p>
         <div className="info">
-          {isLoading && (
-            <span>
-              <Loader />
-            </span>
-          )}
           {isPlaying ? (
             <span onClick={() => setIsPlaying(false)}>
+              {isLoading ? <Loader /> : <IoIosPause size={22} />}
               إيقاف الصوت
-              <IoIosPause size={25} />
             </span>
           ) : (
             <span
@@ -56,12 +50,12 @@ const SurahDetails: NextPage<IProps> = ({ surah }) => {
                 setIsPlaying(true);
               }}
             >
+              <BsFillPlayFill size={22} />
               تشغيل الصوت
-              <BsFillPlayFill size={25} />
             </span>
           )}
           <span onClick={() => setShowDetails((prev) => !prev)}>
-            <BsInfoCircleFill size={25} title={""} /> {` `} معلومات السورة
+            <BsInfoCircleFill size={18} title={""} /> {` `} معلومات السورة
           </span>
           <div className={`details ${showDetails && "active"}`}>
             <p>
@@ -104,7 +98,7 @@ const SurahDetails: NextPage<IProps> = ({ surah }) => {
                 className="ayah"
               >
                 <p>{ayah.text?.slice(40)} </p>
-                <span>{converNumbers(ayah.numberInSurah)}</span>
+                <span>﴿ {`${converNumbers(ayah.numberInSurah)}`} ﴾</span>
               </Link>
             ) : (
               <Link
@@ -113,7 +107,7 @@ const SurahDetails: NextPage<IProps> = ({ surah }) => {
                 className="ayah"
               >
                 <p>{ayah.text} </p>
-                <span>{converNumbers(ayah.numberInSurah)}</span>
+                <span> ﴿ {`${converNumbers(ayah.numberInSurah)}`} ﴾</span>
               </Link>
             )
           )}

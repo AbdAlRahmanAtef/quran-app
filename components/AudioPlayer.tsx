@@ -85,7 +85,7 @@ const AudioPlayer: NextPage<IProps> = ({
     } else {
       dispatch(handleIsLoading(false));
     }
-  }, [audioRef?.current?.duration]);
+  }, [audioRef?.current?.duration, dispatch]);
 
   useEffect(() => {
     const handler = (e: Event) => {
@@ -163,15 +163,13 @@ const AudioPlayer: NextPage<IProps> = ({
           </span>
         </div>
         <div className="play-pause">
-          {isLoading ? (
-            <Loader />
-          ) : isPlaying ? (
-            <span className={`play`} onClick={() => setIsPlaying(false)}>
-              <IoIosPause size={30} />
+          {isPlaying ? (
+            <span className="play" onClick={() => setIsPlaying(false)}>
+              {isLoading ? <Loader /> : <IoIosPause size={25} />}
             </span>
           ) : (
             <span className="pause" onClick={() => setIsPlaying(true)}>
-              <BsFillPlayFill size={30} />
+              <BsFillPlayFill size={25} />
             </span>
           )}
         </div>
