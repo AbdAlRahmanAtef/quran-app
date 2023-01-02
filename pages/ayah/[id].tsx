@@ -29,76 +29,22 @@ const Ayah: NextPage<IProps> = ({
   );
 };
 
-export const getStaticPaths = async () => {
-  const paths = ayahsNumber().map((num) => {
-    return {
-      params: { id: num.toString() },
-    };
-  });
+// export const getStaticPaths = async () => {
+//   const paths = ayahsNumber().map((num) => {
+//     return {
+//       params: { id: num.toString() },
+//     };
+//   });
 
-  return {
-    paths,
-    fallback: false,
-  };
-};
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// };
 
-export const getStaticProps = async (context: any) => {
-  const nums = [1, 2, 3, 4, 5, 6, 7, 8];
-  const id = context.params.id;
-  const ayah = await axios.get(
-    `http://api.alquran.cloud/v1/ayah/${id}/ar.alafasy`
-  );
-  const surahNumber = ayah?.data?.data.surah.number;
-  const ayahNumber = ayah?.data?.data.numberInSurah;
-  const tafsir = await axios.get("http://api.quran-tafseer.com/tafseer");
-  const ayahTafsir1 = await axios.get(
-    `http://api.quran-tafseer.com/tafseer/1/${surahNumber}/${ayahNumber}`
-  );
-  const ayahTafsir2 = await axios.get(
-    `http://api.quran-tafseer.com/tafseer/2/${surahNumber}/${ayahNumber}`
-  );
-  const ayahTafsir3 = await axios.get(
-    `http://api.quran-tafseer.com/tafseer/3/${surahNumber}/${ayahNumber}`
-  );
-  const ayahTafsir4 = await axios.get(
-    `http://api.quran-tafseer.com/tafseer/4/${surahNumber}/${ayahNumber}`
-  );
-  const ayahTafsir5 = await axios.get(
-    `http://api.quran-tafseer.com/tafseer/5/${surahNumber}/${ayahNumber}`
-  );
-  const ayahTafsir6 = await axios.get(
-    `http://api.quran-tafseer.com/tafseer/6/${surahNumber}/${ayahNumber}`
-  );
-  const ayahTafsir7 = await axios.get(
-    `http://api.quran-tafseer.com/tafseer/7/${surahNumber}/${ayahNumber}`
-  );
-  const ayahTafsir8 = await axios.get(
-    `http://api.quran-tafseer.com/tafseer/8/${surahNumber}/${ayahNumber}`
-  );
-
-  return {
-    props: {
-      ayahData: ayah.data.data,
-      tafsirNamesList: tafsir.data,
-      tafsirTextList: [
-        ayahTafsir1.data,
-        ayahTafsir2.data,
-        ayahTafsir3.data,
-        ayahTafsir4.data,
-        ayahTafsir5.data,
-        ayahTafsir6.data,
-        ayahTafsir7.data,
-        ayahTafsir8.data,
-      ],
-    },
-  };
-};
-
-// export const getServerSideProps = async ({
-//   params: { id },
-// }: {
-//   params: { id: string | number };
-// }) => {
+// export const getStaticProps = async (context: any) => {
+//   const nums = [1, 2, 3, 4, 5, 6, 7, 8];
+//   const id = context.params.id;
 //   const ayah = await axios.get(
 //     `http://api.alquran.cloud/v1/ayah/${id}/ar.alafasy`
 //   );
@@ -147,5 +93,59 @@ export const getStaticProps = async (context: any) => {
 //     },
 //   };
 // };
+
+export const getServerSideProps = async ({
+  params: { id },
+}: {
+  params: { id: string | number };
+}) => {
+  const ayah = await axios.get(
+    `http://api.alquran.cloud/v1/ayah/${id}/ar.alafasy`
+  );
+  const surahNumber = ayah?.data?.data.surah.number;
+  const ayahNumber = ayah?.data?.data.numberInSurah;
+  const tafsir = await axios.get("http://api.quran-tafseer.com/tafseer");
+  const ayahTafsir1 = await axios.get(
+    `http://api.quran-tafseer.com/tafseer/1/${surahNumber}/${ayahNumber}`
+  );
+  const ayahTafsir2 = await axios.get(
+    `http://api.quran-tafseer.com/tafseer/2/${surahNumber}/${ayahNumber}`
+  );
+  const ayahTafsir3 = await axios.get(
+    `http://api.quran-tafseer.com/tafseer/3/${surahNumber}/${ayahNumber}`
+  );
+  const ayahTafsir4 = await axios.get(
+    `http://api.quran-tafseer.com/tafseer/4/${surahNumber}/${ayahNumber}`
+  );
+  const ayahTafsir5 = await axios.get(
+    `http://api.quran-tafseer.com/tafseer/5/${surahNumber}/${ayahNumber}`
+  );
+  const ayahTafsir6 = await axios.get(
+    `http://api.quran-tafseer.com/tafseer/6/${surahNumber}/${ayahNumber}`
+  );
+  const ayahTafsir7 = await axios.get(
+    `http://api.quran-tafseer.com/tafseer/7/${surahNumber}/${ayahNumber}`
+  );
+  const ayahTafsir8 = await axios.get(
+    `http://api.quran-tafseer.com/tafseer/8/${surahNumber}/${ayahNumber}`
+  );
+
+  return {
+    props: {
+      ayahData: ayah.data.data,
+      tafsirNamesList: tafsir.data,
+      tafsirTextList: [
+        ayahTafsir1.data,
+        ayahTafsir2.data,
+        ayahTafsir3.data,
+        ayahTafsir4.data,
+        ayahTafsir5.data,
+        ayahTafsir6.data,
+        ayahTafsir7.data,
+        ayahTafsir8.data,
+      ],
+    },
+  };
+};
 
 export default Ayah;

@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { convertNumbers } from "../utils/convertNumbers";
 import Link from "next/link";
 import Loader from "./Loader";
+import axios from "axios";
 
 interface IProps {
   surah: allProps;
@@ -32,6 +33,12 @@ const SurahDetails: NextPage<IProps> = ({ surah }) => {
   useEffect(() => {
     setSurahNumber(number?.toString().padStart(3, "0"));
   }, [number]);
+
+  useEffect(() => {
+    axios
+      .get(`https://mp3quran.net/api/v3/tafsir?tafsir=5&language=ar`)
+      .then((response) => console.log(response));
+  }, []);
 
   return (
     <div className="surah-details">
