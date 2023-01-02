@@ -34,12 +34,6 @@ const SurahDetails: NextPage<IProps> = ({ surah }) => {
     setSurahNumber(number?.toString().padStart(3, "0"));
   }, [number]);
 
-  useEffect(() => {
-    axios
-      .get(`https://mp3quran.net/api/v3/tafsir?tafsir=5&language=ar`)
-      .then((response) => console.log(response));
-  }, []);
-
   return (
     <div className="surah-details">
       <div className="container">
