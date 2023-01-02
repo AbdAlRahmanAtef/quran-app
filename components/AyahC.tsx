@@ -6,10 +6,10 @@ import { IoIosArrowBack, IoIosArrowForward, IoIosPause } from "react-icons/io";
 import { MdOutlineCancel } from "react-icons/md";
 import AudioPlayer from "./AudioPlayer";
 import { allAyahProps, tafsirProps, tafsirTypeProps } from "../utils/constents";
-import { converNumbers } from "../utils/convertNumbers";
 import { NextPage } from "next";
 import { useAppSelector } from "../redux/hooks";
 import Loader from "./Loader";
+import { convertNumbers } from "../utils/convertNumbers";
 
 interface IProps {
   ayahData: allAyahProps;
@@ -126,7 +126,7 @@ const AyahC: NextPage<IProps> = ({
             >
               {ayahsArray?.map((ayah: number) => (
                 <option value={ayah} key={ayah}>
-                  {converNumbers(ayah)}
+                  {convertNumbers(ayah)}
                 </option>
               ))}
             </select>
@@ -158,10 +158,11 @@ const AyahC: NextPage<IProps> = ({
               أسم السورة: <span>{surah.name}</span>
             </p>
             <p>
-              عدد الأيات: <span>{converNumbers(surah.numberOfAyahs)} آيات</span>
+              عدد الأيات:{" "}
+              <span>{convertNumbers(surah.numberOfAyahs)} آيات</span>
             </p>
             <p>
-              رقم السورة: <span>{converNumbers(surah.number)}</span>
+              رقم السورة: <span>{convertNumbers(surah.number)}</span>
             </p>
             <p>
               المنزل: {surah.revelationType === "Medinan" ? "مدنية" : "مكية"}
@@ -185,7 +186,7 @@ const AyahC: NextPage<IProps> = ({
         </div>
         <div className="tafsir">
           <div className="ayah-text">
-            {text} <span> {`${converNumbers(numberInSurah)}`} ﴾</span>
+            {text} <span> ﴿ {`${convertNumbers(numberInSurah)}`} ﴾</span>
           </div>
           <div className="tafsir-text">{tafsir?.text}</div>
         </div>
@@ -206,8 +207,8 @@ const AyahC: NextPage<IProps> = ({
         </div>
       </div>
       <AudioPlayer
-        downloadURL={""}
         isDownloadable={false}
+        name={surah.name}
         show={show}
         setShow={setShow}
         src={`${audio ? audio : audioSecondary}`}

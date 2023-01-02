@@ -13,20 +13,19 @@ import {
   handleIsLoading,
 } from "../redux/slices/audioSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import Link from "next/link";
 import Loader from "./Loader";
 import { BsFillPlayFill } from "react-icons/bs";
 
 interface IProps {
   src: string;
+  name: string;
   show: boolean;
   setShow: (value: boolean) => void;
   isPlaying: boolean;
+  isDownloadable: boolean;
   setIsPlaying: (value: boolean) => void;
   isManyReciters: boolean;
   fileName: number;
-  downloadURL: string;
-  isDownloadable: boolean;
 }
 
 interface RProps {
@@ -38,13 +37,13 @@ interface RProps {
 
 const AudioPlayer: NextPage<IProps> = ({
   src,
+  name,
   show,
   isPlaying,
+  isDownloadable,
   setShow,
   setIsPlaying,
   isManyReciters,
-  downloadURL,
-  isDownloadable,
 }) => {
   const [duration, setDuration] = useState<number>(0);
   const [showMoreMenu, setShowMoreMenu] = useState(false);
@@ -154,6 +153,21 @@ const AudioPlayer: NextPage<IProps> = ({
     };
   }
 
+  const handleDownload = (url: string) => {
+    fetch(url)
+      .then((response) => response.blob())
+      .then((blob) => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.style.display = "none";
+        a.href = url;
+        a.download = `${name}.mp4`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+      });
+  };
+
   return (
     <div className={`audio-player ${show && "show"}`}>
       <div className="controles">
@@ -189,10 +203,8 @@ const AudioPlayer: NextPage<IProps> = ({
         ref={moreMenuRef}
       >
         {isDownloadable && (
-          <p className="download">
-            <Link href={downloadURL} download>
-              <HiOutlineDownload size={20} /> تحميل
-            </Link>
+          <p className="download" onClick={() => handleDownload(src)}>
+            <HiOutlineDownload size={20} /> تحميل
           </p>
         )}
         {isManyReciters && (

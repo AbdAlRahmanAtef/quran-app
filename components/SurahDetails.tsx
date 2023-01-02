@@ -5,7 +5,7 @@ import { BsInfoCircleFill, BsFillPlayFill, BsBook } from "react-icons/bs";
 import { IoIosPause } from "react-icons/io";
 import AudioPlayer from "./AudioPlayer";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { converNumbers } from "../utils/convertNumbers";
+import { convertNumbers } from "../utils/convertNumbers";
 import Link from "next/link";
 import Loader from "./Loader";
 
@@ -18,7 +18,7 @@ interface allProps extends SurahProps {
 }
 
 const SurahDetails: NextPage<IProps> = ({ surah }) => {
-  const { number, ayahs, numberOfAyahs, revelationType } = surah;
+  const { name, number, ayahs, numberOfAyahs, revelationType } = surah;
 
   const [showDetails, setShowDetails] = useState(false);
   const [show, setShow] = useState(false);
@@ -62,10 +62,10 @@ const SurahDetails: NextPage<IProps> = ({ surah }) => {
               أسم السورة: <span>{surah.name}</span>
             </p>
             <p>
-              عدد الأيات: <span>{converNumbers(numberOfAyahs)} آيات</span>
+              عدد الأيات: <span>{convertNumbers(numberOfAyahs)} آيات</span>
             </p>
             <p>
-              رقم السورة: <span>{converNumbers(surah.number)}</span>
+              رقم السورة: <span>{convertNumbers(surah.number)}</span>
             </p>
             <p>المنزل: {revelationType === "Medinan" ? "مدنية" : "مكية"}</p>
           </div>
@@ -98,7 +98,7 @@ const SurahDetails: NextPage<IProps> = ({ surah }) => {
                 className="ayah"
               >
                 <p>{ayah.text?.slice(40)} </p>
-                <span>﴿ {`${converNumbers(ayah.numberInSurah)}`} ﴾</span>
+                <span>﴿ {`${convertNumbers(ayah.numberInSurah)}`} ﴾</span>
               </Link>
             ) : (
               <Link
@@ -107,7 +107,7 @@ const SurahDetails: NextPage<IProps> = ({ surah }) => {
                 className="ayah"
               >
                 <p>{ayah.text} </p>
-                <span> ﴿ {`${converNumbers(ayah.numberInSurah)}`} ﴾</span>
+                <span> ﴿ {`${convertNumbers(ayah.numberInSurah)}`} ﴾</span>
               </Link>
             )
           )}
@@ -115,11 +115,7 @@ const SurahDetails: NextPage<IProps> = ({ surah }) => {
       </div>
       <AudioPlayer
         isDownloadable
-        downloadURL={
-          rewayat !== ""
-            ? `https://server${server}.mp3quran.net/download/${reciter}/${rewayat}S/${surahNumber}.mp3`
-            : `https://server${server}.mp3quran.net/download/${reciter}/${surahNumber}.mp3`
-        }
+        name={name}
         show={show}
         setShow={setShow}
         fileName={surah.number}

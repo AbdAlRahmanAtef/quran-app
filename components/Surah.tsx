@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import Link from "next/link";
 import React from "react";
 import { SurahProps } from "../utils/constents";
+import { convertNumbers } from "../utils/convertNumbers";
 
 interface IProps {
   surah: SurahProps;
@@ -9,29 +10,16 @@ interface IProps {
 
 const Surah: NextPage<IProps> = ({ surah }) => {
   const { number, ayahs, name } = surah;
-
-  const converNumbers = (num: number) => {
-    const numbers = `۰۱۲۳٤٥٦٧۸۹`;
-
-    let finalNumber: string = "";
-
-    for (let c of num.toString()) {
-      finalNumber += numbers.charAt(+c);
-    }
-
-    return finalNumber;
-  };
-
   return (
     <Link href={`./detail/${number}`} className="surah">
       <div>
         <span className="number">
-          <small>{converNumbers(number)}</small>
+          <small>{convertNumbers(number)}</small>
         </span>
         <span className="name">{name}</span>
       </div>
       <span className="ayahs">
-        {converNumbers(ayahs.length)}
+        {convertNumbers(ayahs.length)}
         {` `}
         آيات
       </span>

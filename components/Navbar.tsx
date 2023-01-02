@@ -78,7 +78,7 @@ const Navbar = () => {
     e.preventDefault();
     if (inputValue) {
       const searchTerm = surahsNames.filter((surah: surahName) =>
-        surah.name.includes(inputValue)
+        surah.name.trim().includes(inputValue.trim())
       );
       router.push(`/detail/${searchTerm[0].number}`);
       setInputValue("");

@@ -1,4 +1,4 @@
-export const converNumbers = (num: number) => {
+export const convertNumbers = (num: number) => {
   const numbers = `۰۱۲۳٤٥٦٧۸۹`;
 
   let finalNumber: string = "";

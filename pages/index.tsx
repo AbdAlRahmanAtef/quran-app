@@ -6,6 +6,7 @@ import { FaSearch } from "react-icons/fa";
 import Landing from "../components/Landing";
 import Surah from "../components/Surah";
 import { useAppDispatch } from "../redux/hooks";
+import { ayahsNumber } from "../utils/ayahsNumber";
 import { SurahProps } from "../utils/constents";
 import { surahsNames } from "../utils/surahsNames";
 
@@ -20,7 +21,6 @@ interface IProps {
 
 const Home: NextPage<IProps> = ({ surahs }) => {
   const dispatch = useAppDispatch();
-
   const [inputValue, setInputValue] = useState<string>("");
 
   const router = useRouter();
@@ -30,7 +30,7 @@ const Home: NextPage<IProps> = ({ surahs }) => {
     e.preventDefault();
     if (inputValue) {
       const searchTerm = surahsNames.filter((surah: surahName) =>
-        surah.name.includes(inputValue)
+        surah.name.trim().includes(inputValue.trim())
       );
       router.push(`/detail/${searchTerm[0].number}`);
       setInputValue("");
